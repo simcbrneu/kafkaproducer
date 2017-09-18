@@ -49,6 +49,7 @@ def producer(data):
 
     for d in data:
         p.produce(kafka_topic, d.encode('utf-8'))
+        print "produce:", d
 
     p.flush()
 
