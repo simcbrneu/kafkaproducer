@@ -26,7 +26,7 @@ def get_keytab(url):
             f.write(chunk)
     return keytab_file
 
-def producer(data):
+def producer():
     env_list = [
         'kafka_principal',
         'kafka_keytab',
@@ -47,12 +47,10 @@ def producer(data):
         'bootstrap.servers': kafka_brokers,
     })
 
+    data = ['1', '2', '3', '4', '5']
     for d in data:
         p.produce(kafka_topic, d.encode('utf-8'))
         print "produce:", d
 
     p.flush()
 
-f __name__ == "__main__":
-    data = ['1', '2', '3', '4', '5']
-    producer(data)
