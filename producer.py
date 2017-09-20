@@ -5,6 +5,7 @@
 
 import os
 import tempfile
+import time
 
 from confluent_kafka import Producer
 
@@ -47,10 +48,11 @@ def producer():
         'bootstrap.servers': kafka_brokers,
     })
 
-    data = ['1', '2', '3', '4', '5']
-    for d in data:
+    while True:
+        dt = time.strftime("%F %T")
         p.produce(kafka_topic, d.encode('utf-8'))
         print "produce:", d
+        time.sleep(1)
 
     p.flush()
 
